@@ -1,0 +1,1292 @@
+---
+const contacts = [
+	{
+		label: 'Email',
+		value: 'ogolknevnv@gmail.com',
+		href: 'mailto:ogolknevnv@gmail.com',
+	},
+	{
+		label: 'Telegram',
+		value: '@ogolknev',
+		href: 'https://t.me/ogolknev',
+	},
+	{
+		label: 'GitHub',
+		value: '@ogolknev',
+		href: 'https://github.com/ogolknev',
+	},
+];
+
+const assetUrl = (path: string) =>
+	`${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path}`;
+
+const experiences = [
+	{
+		organization: 'Яндекс',
+		role: 'Стажёр-разработчик интерфейсов',
+		period: 'Май 2026 — настоящее время',
+		context: 'Группа скорости интерфейсов Поиска',
+		description:
+			'Работаю над инструментами и стабильностью React-интерфейсов в монорепозитории, объединяющем 11 продуктовых проектов и общие библиотеки.',
+		achievements: [
+			'Систематизировал и исправил около 40 классов React-ошибок, преимущественно связанных с SSR и гидратацией.',
+			'Локализовал проблему в React dev-runtime и подготовил исправление для open-source-библиотеки bem-react; изменение прошло ревью и было принято.',
+			'Разработал механизм стабирования изображений в тестах: перед рендерингом он заменяет URL изображений в данных на адреса API стабов.',
+			'Устранил аномально долгое выполнение этапа очистки кэша сборки в preinstall-скрипте: отправка логов не давала Node.js-процессу завершиться и задерживала следующий этап установки зависимостей. Добавил явный таймаут на отправку данных логирования.',
+			'Разработал и внедрил ESLint-правило, предотвращающее небезопасную передачу props в DOM-элементы и попадание служебных атрибутов в HTML.',
+			'Выявил причину ложных ошибок при тестировании: одна из React-библиотек использовалась в production-режиме внутри dev-сборки.',
+		],
+	},
+	{
+		organization: 'LMS-платформа',
+		role: 'Разработчик',
+		period: 'Июнь 2025 — май 2026',
+		context: 'Фриланс-проект',
+		description:
+			'Самостоятельно разработал и развернул LMS-платформу для онлайн-обучения, полностью отвечая за техническую реализацию проекта.',
+		achievements: [
+			'Спроектировал и реализовал интерфейсы курсов и уроков на Vue 3.',
+			'Реализовал авторизацию и управление доступом к контенту.',
+			'Интегрировал приложение с CMS и API на Strapi.',
+			'Упростил структуру проекта и модель данных, перенёс кодовую базу в монорепозиторий.',
+			'Добавил безопасный рендеринг rich text-контента уроков.',
+		],
+	},
+	{
+		organization: 'Фриланс',
+		role: 'Разработчик автоматизаций',
+		period: 'Июль 2024 — май 2026',
+		context: 'Отдельные заказы',
+		description: 'Выполнял коммерческие задачи для продавцов на маркетплейсах.',
+		achievements: [
+			'Разрабатывал на Google Apps Script интеграции для загрузки отчётов маркетплейсов в Google Sheets.',
+			'Автоматизировал обработку и обновление данных, сокращая ручную работу с отчётностью.',
+		],
+	},
+];
+
+const skillGroups = [
+	{
+		id: 'frontend',
+		title: 'Frontend',
+		skills: [
+			'TypeScript',
+			'JavaScript',
+			'React',
+			'Vue 3',
+			'Pinia',
+			'HTML',
+			'CSS',
+			'Tailwind CSS',
+		],
+	},
+	{
+		id: 'infrastructure',
+		title: 'Инфраструктура и качество',
+		skills: ['SSR', 'Гидратация', 'ESLint', 'Vite', 'Webpack', 'Git'],
+	},
+	{
+		id: 'backend',
+		title: 'Backend и интеграции',
+		skills: ['Node.js', 'REST API', 'Strapi', 'PostgreSQL', 'Google Apps Script'],
+	},
+];
+---
+
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta
+			name="description"
+			content="Резюме frontend-разработчика Никиты Оголкнева"
+		/>
+		<script is:inline>
+			(() => {
+				const storageKey = 'resume-theme';
+				let savedTheme = null;
+
+				try {
+					savedTheme = window.localStorage.getItem(storageKey);
+				} catch {}
+
+				const theme =
+					savedTheme === 'light' || savedTheme === 'dark'
+						? savedTheme
+						: matchMedia('(prefers-color-scheme: dark)').matches
+							? 'dark'
+							: 'light';
+
+				document.documentElement.dataset.theme = theme;
+			})();
+		</script>
+		<link rel="icon" type="image/svg+xml" href={assetUrl('favicon.svg')} />
+		<link rel="icon" href={assetUrl('favicon.ico')} sizes="32x32" />
+		<title>Никита Оголкнев — Frontend-разработчик</title>
+	</head>
+	<body>
+		<button
+			class="theme-toggle"
+			type="button"
+			aria-label="Переключить тему"
+			title="Переключить тему"
+		>
+			<svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z" />
+			</svg>
+			<svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true">
+				<circle cx="12" cy="12" r="3.5" />
+				<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+			</svg>
+		</button>
+
+		<main>
+			<section class="intro" aria-labelledby="intro-title">
+				<div class="portrait">
+					<img
+						src={assetUrl('avatar.png')}
+						alt="Никита Оголкнев"
+						width="460"
+						height="460"
+					/>
+				</div>
+
+				<div class="intro__content">
+					<p class="intro__label">
+						<span>Резюме</span>
+						<span>Frontend</span>
+					</p>
+
+					<h1 id="intro-title">
+						<span>Никита</span>
+						<strong>Оголкнев</strong>
+					</h1>
+
+					<ul class="contacts" aria-label="Контакты">
+						{
+							contacts.map(({ label, value, href }) => (
+								<li>
+									<span>{label}</span>
+									<a href={href} target={href.startsWith('http') ? '_blank' : undefined}>
+										{value}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</section>
+
+			<section class="experience" aria-labelledby="experience-title">
+				<header class="experience__header">
+					<p class="section-label">Карьера</p>
+					<h2 id="experience-title" aria-label="Опыт работы">
+						<span>Опыт</span>
+						<strong>работы</strong>
+					</h2>
+				</header>
+
+				<div class="experience__list">
+					{
+						experiences.map(
+							({ organization, role, period, context, description, achievements }) => (
+								<article class="job">
+									<header class="job__header">
+										<div>
+											<h3>{organization}</h3>
+											<p class="job__role">{role}</p>
+											<p class="job__context">{context}</p>
+										</div>
+										<p class="job__period">{period}</p>
+									</header>
+
+									<p class="job__description">{description}</p>
+
+									<ul class="job__achievements">
+										{achievements.map((achievement) => <li>{achievement}</li>)}
+									</ul>
+								</article>
+							),
+						)
+					}
+				</div>
+			</section>
+
+			<section class="skills" aria-labelledby="skills-title">
+				<header class="skills__header">
+					<p class="section-label">Компетенции</p>
+					<h2 id="skills-title">Навыки</h2>
+				</header>
+
+				<div class="skills__groups">
+					{
+						skillGroups.map(({ id, title, skills }) => (
+							<section class="skill-group" aria-labelledby={`skill-group-${id}`}>
+								<h3 class="skill-group__title" id={`skill-group-${id}`}>
+									{title}
+								</h3>
+								<ul class="skill-group__list">
+									{skills.map((skill) => <li>{skill}</li>)}
+								</ul>
+							</section>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="additional" aria-labelledby="additional-title">
+				<header class="additional__header">
+					<p class="section-label">Дополнительно</p>
+					<h2
+						class="additional__title"
+						id="additional-title"
+						aria-label="Образование и языки"
+					>
+						<span>Образование</span>
+						<strong>и языки</strong>
+					</h2>
+				</header>
+
+				<div class="additional__content">
+					<article class="additional__item">
+						<p class="additional__label">Образование</p>
+						<h3 class="additional__name">Воронежский государственный университет</h3>
+						<p class="additional__description">Информатика и вычислительная техника</p>
+						<p class="additional__meta">Неоконченное высшее · 2024</p>
+					</article>
+
+					<article class="additional__item">
+						<p class="additional__label">Языки</p>
+						<dl class="languages">
+							<div>
+								<dt>Русский</dt>
+								<dd>Родной</dd>
+							</div>
+							<div>
+								<dt>Английский</dt>
+								<dd>Уверенно читаю техническую документацию, базовый разговорный</dd>
+							</div>
+						</dl>
+					</article>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer">
+			<div class="footer__identity">
+				<p class="section-label">Контакты</p>
+				<p class="footer__name">Никита Оголкнев</p>
+			</div>
+
+			<div class="footer__content">
+				<ul class="footer__contacts">
+					{
+						contacts.map(({ label, value, href }) => (
+							<li>
+								<span>{label}</span>
+								<a href={href} target={href.startsWith('http') ? '_blank' : undefined}>
+									{value}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+
+				<a
+					class="print-button"
+					href={assetUrl('nikita-ogolknev-resume.pdf')}
+					download
+				>
+					Скачать PDF
+				</a>
+			</div>
+		</footer>
+
+		<script>
+			const themeStorageKey = 'resume-theme';
+			const themeToggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+			const systemTheme = matchMedia('(prefers-color-scheme: dark)');
+
+			const getStoredTheme = () => {
+				try {
+					const theme = window.localStorage.getItem(themeStorageKey);
+
+					return theme === 'light' || theme === 'dark' ? theme : null;
+				} catch {
+					return null;
+				}
+			};
+
+			const updateThemeToggle = () => {
+				if (!themeToggle) {
+					return;
+				}
+
+				const currentTheme = document.documentElement.dataset.theme;
+				const label = currentTheme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему';
+
+				themeToggle.setAttribute('aria-label', label);
+				themeToggle.title = label;
+			};
+
+			const setTheme = (theme: 'light' | 'dark', persist = true) => {
+				document.documentElement.dataset.theme = theme;
+				updateThemeToggle();
+
+				if (persist) {
+					try {
+						window.localStorage.setItem(themeStorageKey, theme);
+					} catch {}
+				}
+			};
+
+			themeToggle?.addEventListener('click', () => {
+				setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+			});
+
+			systemTheme.addEventListener('change', ({ matches }) => {
+				if (!getStoredTheme()) {
+					setTheme(matches ? 'dark' : 'light', false);
+				}
+			});
+
+			updateThemeToggle();
+		</script>
+	</body>
+</html>
+
+<style>
+	:root {
+		--color-background: #f7f7f7;
+		--color-text: #161616;
+		--color-muted: #686868;
+		--color-border: #d6d6d6;
+		--color-accent: #6d28d9;
+		--theme-toggle-color: #161616;
+		--theme-toggle-border: #d6d6d6;
+		--theme-toggle-hover-background: #333;
+		--theme-toggle-hover-color: #fff;
+		--theme-toggle-hover-border: #333;
+		--theme-toggle-focus: #161616;
+
+		color-scheme: light;
+		font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		color: var(--color-text);
+		background: var(--color-background);
+		font-synthesis: none;
+	}
+
+	:root[data-theme="dark"] {
+		--color-background: #121212;
+		--color-text: #f2f2f2;
+		--color-muted: #a3a3a3;
+		--color-border: #333;
+		--color-accent: #8b5cf6;
+		--theme-toggle-color: #f2f2f2;
+		--theme-toggle-border: #333;
+		--theme-toggle-hover-background: #f2f2f2;
+		--theme-toggle-hover-color: #161616;
+		--theme-toggle-hover-border: #f2f2f2;
+		--theme-toggle-focus: #f2f2f2;
+
+		color-scheme: dark;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		min-width: 320px;
+		min-height: 100vh;
+	}
+
+	.theme-toggle {
+		position: fixed;
+		z-index: 10;
+		top: clamp(1rem, 2vw, 1.5rem);
+		right: clamp(1rem, 2vw, 1.5rem);
+		display: grid;
+		place-items: center;
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0;
+		appearance: none;
+		border: 1px solid var(--theme-toggle-border);
+		border-radius: 0;
+		color: var(--theme-toggle-color);
+		background: var(--color-background);
+		cursor: pointer;
+		transition:
+			border-color 160ms ease,
+			color 160ms ease,
+			background 160ms ease,
+			filter 100ms ease;
+	}
+
+	.theme-toggle:hover {
+		border-color: var(--theme-toggle-hover-border);
+		color: var(--theme-toggle-hover-color);
+		background: var(--theme-toggle-hover-background);
+	}
+
+	.theme-toggle:focus-visible {
+		outline: none;
+		box-shadow: inset 0 0 0 2px var(--theme-toggle-focus);
+	}
+
+	.theme-toggle:active {
+		filter: brightness(0.82);
+	}
+
+	.theme-toggle svg {
+		width: 1.2rem;
+		height: 1.2rem;
+		fill: none;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 1.7;
+	}
+
+	.theme-toggle__sun {
+		display: none;
+	}
+
+	:root[data-theme="dark"] .theme-toggle__moon {
+		display: none;
+	}
+
+	:root[data-theme="dark"] .theme-toggle__sun {
+		display: block;
+	}
+
+	main {
+		min-height: 100svh;
+		padding: 0 clamp(1.5rem, 5vw, 5rem);
+	}
+
+	.intro {
+		display: grid;
+		grid-template-columns: minmax(16rem, 0.78fr) minmax(24rem, 1.22fr);
+		gap: clamp(2.5rem, 7vw, 7.5rem);
+		align-items: center;
+		align-content: center;
+		width: min(100%, 76rem);
+		min-height: 100svh;
+		margin: 0 auto;
+		padding: clamp(1.5rem, 5vw, 5rem) 0;
+	}
+
+	.portrait {
+		position: relative;
+		isolation: isolate;
+	}
+
+	.portrait::after {
+		position: absolute;
+		z-index: -1;
+		right: -1rem;
+		bottom: -1rem;
+		width: 58%;
+		height: 58%;
+		background: var(--color-accent);
+		content: "";
+	}
+
+	.portrait img {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1;
+		object-fit: cover;
+		filter: saturate(0.82) contrast(1.03);
+	}
+
+	.intro__content {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.intro__label {
+		display: flex;
+		justify-content: space-between;
+		margin: 0 0 clamp(2.5rem, 7vw, 5.5rem);
+		padding-bottom: 0.7rem;
+		border-bottom: 1px solid var(--color-border);
+		color: var(--color-muted);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(3.75rem, 8vw, 7.25rem);
+		font-weight: 400;
+		letter-spacing: -0.075em;
+		line-height: 0.8;
+	}
+
+	h1 span,
+	h1 strong {
+		display: block;
+	}
+
+	h1 strong {
+		font-weight: 750;
+	}
+
+	.contacts {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		margin: clamp(2.5rem, 5vw, 4.5rem) 0 0;
+		padding: 1rem 0 0;
+		border-top: 1px solid var(--color-border);
+		list-style: none;
+	}
+
+	.contacts li {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		min-width: 0;
+	}
+
+	.contacts span {
+		color: var(--color-muted);
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+	}
+
+	.contacts a {
+		overflow: hidden;
+		color: inherit;
+		font-size: 0.9rem;
+		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		transition: color 160ms ease;
+	}
+
+	.contacts a:hover,
+	.contacts a:focus-visible {
+		color: var(--color-accent);
+	}
+
+	.experience,
+	.skills,
+	.additional {
+		display: grid;
+		grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1.45fr);
+		gap: clamp(3rem, 8vw, 8rem);
+		width: min(100%, 76rem);
+		margin: 0 auto;
+		padding: clamp(5rem, 10vw, 9rem) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.experience__header,
+	.skills__header,
+	.additional__header {
+		position: sticky;
+		top: 2rem;
+		align-self: start;
+	}
+
+	.section-label {
+		margin: 0 0 1.25rem;
+		color: var(--color-accent);
+		font-size: 0.75rem;
+		font-weight: 750;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(3.4rem, 6vw, 6rem);
+		font-weight: 400;
+		letter-spacing: -0.07em;
+		line-height: 0.82;
+	}
+
+	h2 span,
+	h2 strong {
+		display: block;
+	}
+
+	h2 strong {
+		font-weight: 750;
+	}
+
+	.experience__list {
+		min-width: 0;
+	}
+
+	.job {
+		padding: clamp(3rem, 6vw, 5rem) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.job:first-child {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.job:last-child {
+		padding-bottom: 0;
+	}
+
+	.job__header {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 1rem 2rem;
+		align-items: start;
+	}
+
+	h3 {
+		margin: 0;
+		font-size: clamp(1.9rem, 3.2vw, 3rem);
+		font-weight: 700;
+		letter-spacing: -0.045em;
+		line-height: 1;
+	}
+
+	.job__role,
+	.job__context,
+	.job__period,
+	.job__description {
+		margin: 0;
+	}
+
+	.job__role {
+		margin-top: 0.8rem;
+		font-size: 1rem;
+		font-weight: 650;
+	}
+
+	.job__context,
+	.job__period {
+		color: var(--color-muted);
+		font-size: 0.8rem;
+		letter-spacing: 0.02em;
+	}
+
+	.job__context {
+		margin-top: 0.3rem;
+	}
+
+	.job__period {
+		padding-top: 0.25rem;
+		white-space: nowrap;
+	}
+
+	.job__description {
+		max-width: 47rem;
+		margin-top: 2rem;
+		font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+		line-height: 1.55;
+	}
+
+	.job__achievements {
+		display: grid;
+		gap: 0.85rem;
+		max-width: 49rem;
+		margin: 1.75rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.job__achievements li {
+		position: relative;
+		padding-left: 1.4rem;
+		color: var(--color-muted);
+		font-size: 0.98rem;
+		line-height: 1.55;
+	}
+
+	.job__achievements li::before {
+		position: absolute;
+		top: 0.66em;
+		left: 0;
+		width: 0.38rem;
+		height: 0.38rem;
+		background: var(--color-accent);
+		content: "";
+	}
+
+	.skills__groups {
+		min-width: 0;
+	}
+
+	.skill-group {
+		padding: clamp(2.5rem, 5vw, 4rem) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.skill-group:first-child {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	.skill-group:last-child {
+		padding-bottom: 0;
+	}
+
+	.skill-group__title {
+		margin: 0 0 1.5rem;
+		color: var(--color-muted);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		line-height: 1.3;
+		text-transform: uppercase;
+	}
+
+	.skill-group__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.85rem 1.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.skill-group__list li {
+		padding-bottom: 0.3rem;
+		border-bottom: 2px solid var(--color-accent);
+		font-size: clamp(1.25rem, 2.4vw, 2rem);
+		font-weight: 650;
+		letter-spacing: -0.035em;
+		line-height: 1.15;
+	}
+
+	.additional__title {
+		font-size: clamp(2.4rem, 4vw, 4rem);
+		line-height: 0.88;
+	}
+
+	.additional__content {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: clamp(2rem, 5vw, 5rem);
+		min-width: 0;
+	}
+
+	.additional__item {
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.additional__label,
+	.additional__description,
+	.additional__meta {
+		margin: 0;
+	}
+
+	.additional__label {
+		margin-bottom: 1.5rem;
+		color: var(--color-muted);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	.additional__name {
+		font-size: clamp(1.45rem, 2.4vw, 2rem);
+		line-height: 1.1;
+	}
+
+	.additional__description {
+		margin-top: 1.25rem;
+		font-size: 1rem;
+		line-height: 1.5;
+	}
+
+	.additional__meta {
+		margin-top: 0.55rem;
+		color: var(--color-muted);
+		font-size: 0.85rem;
+	}
+
+	.languages {
+		display: grid;
+		gap: 1.5rem;
+		margin: 0;
+	}
+
+	.languages div {
+		display: grid;
+		gap: 0.35rem;
+	}
+
+	.languages dt {
+		font-size: clamp(1.25rem, 2vw, 1.65rem);
+		font-weight: 700;
+		letter-spacing: -0.03em;
+	}
+
+	.languages dd {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	.footer {
+		display: grid;
+		grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1.45fr);
+		gap: clamp(3rem, 8vw, 8rem);
+		width: min(calc(100% - clamp(3rem, 10vw, 10rem)), 76rem);
+		margin: 0 auto;
+		padding: clamp(3rem, 7vw, 6rem) 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.footer__name {
+		margin: 0;
+		font-size: clamp(1.4rem, 2.3vw, 2rem);
+		font-weight: 700;
+		letter-spacing: -0.04em;
+	}
+
+	.footer__content {
+		display: grid;
+		gap: 2.5rem;
+	}
+
+	.footer__contacts {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.footer__contacts li {
+		display: grid;
+		gap: 0.4rem;
+		min-width: 0;
+	}
+
+	.footer__contacts span {
+		color: var(--color-muted);
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+	}
+
+	.footer__contacts a {
+		overflow: hidden;
+		color: inherit;
+		font-size: 0.9rem;
+		text-decoration: none;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		transition: color 160ms ease;
+	}
+
+	.footer__contacts a:hover,
+	.footer__contacts a:focus-visible {
+		color: var(--color-accent);
+	}
+
+	.print-button {
+		display: inline-block;
+		justify-self: start;
+		padding: 0.8rem 1rem;
+		border: 1px solid var(--color-accent);
+		border-radius: 0;
+		color: var(--color-text);
+		background: transparent;
+		font: inherit;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-decoration: none;
+		text-transform: uppercase;
+		cursor: pointer;
+		transition:
+			color 160ms ease,
+			background 160ms ease;
+	}
+
+	.print-button:hover,
+	.print-button:focus-visible {
+		color: var(--color-background);
+		background: var(--color-accent);
+	}
+
+	@media (max-width: 760px) {
+		.intro {
+			grid-template-columns: 1fr;
+			gap: 3rem;
+			padding-top: 4.75rem;
+		}
+
+		.portrait {
+			width: min(82vw, 24rem);
+		}
+
+		.intro__label {
+			margin-bottom: 3rem;
+		}
+
+		h1 {
+			font-size: clamp(3.5rem, 18vw, 6.5rem);
+		}
+
+		.contacts {
+			grid-template-columns: 1fr;
+			gap: 1.25rem;
+		}
+
+		.experience,
+		.skills,
+		.additional,
+		.footer {
+			grid-template-columns: 1fr;
+			gap: 4rem;
+		}
+
+		.experience__header,
+		.skills__header,
+		.additional__header {
+			position: static;
+		}
+
+		h2 {
+			font-size: clamp(3.4rem, 17vw, 5.5rem);
+		}
+
+		.additional__title {
+			font-size: clamp(2.5rem, 12vw, 4.5rem);
+		}
+
+		.job__header {
+			grid-template-columns: 1fr;
+		}
+
+		.job__period {
+			padding-top: 0;
+			white-space: normal;
+		}
+
+		.additional__content,
+		.footer__contacts {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme]) {
+			--color-background: #121212;
+			--color-text: #f2f2f2;
+			--color-muted: #a3a3a3;
+			--color-border: #333;
+			--color-accent: #8b5cf6;
+			--theme-toggle-color: #f2f2f2;
+			--theme-toggle-border: #333;
+			--theme-toggle-hover-background: #f2f2f2;
+			--theme-toggle-hover-color: #161616;
+			--theme-toggle-hover-border: #f2f2f2;
+			--theme-toggle-focus: #f2f2f2;
+
+			color-scheme: dark;
+		}
+	}
+
+	@page {
+		size: A4;
+		margin: 12mm 14mm;
+	}
+
+	@media print {
+		:root,
+		:root[data-theme="dark"] {
+			--color-background: #fff;
+			--color-text: #161616;
+			--color-muted: #686868;
+			--color-border: #d6d6d6;
+			--color-accent: #6d28d9;
+
+			color-scheme: light;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		html,
+		body {
+			min-width: 0;
+			min-height: 0;
+			background: var(--color-background);
+		}
+
+		body {
+			font-size: 9pt;
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+
+		main {
+			min-height: auto;
+			padding: 0;
+		}
+
+		.intro {
+			grid-template-columns: 35mm minmax(0, 1fr);
+			gap: 9mm;
+			align-content: normal;
+			width: 100%;
+			min-height: auto;
+			padding: 0 0 7mm;
+			border-bottom: 1px solid var(--color-border);
+		}
+
+		.portrait {
+			width: 35mm;
+		}
+
+		.portrait::after {
+			right: -2mm;
+			bottom: -2mm;
+		}
+
+		.intro__label {
+			margin-bottom: 6mm;
+			padding-bottom: 2mm;
+			font-size: 6pt;
+		}
+
+		h1 {
+			font-size: 30pt;
+			line-height: 0.82;
+		}
+
+		.contacts {
+			gap: 4mm;
+			margin-top: 6mm;
+			padding-top: 2.5mm;
+		}
+
+		.contacts span,
+		.footer__contacts span {
+			font-size: 5.5pt;
+		}
+
+		.contacts a,
+		.footer__contacts a {
+			overflow: visible;
+			font-size: 7.5pt;
+			text-overflow: clip;
+			white-space: nowrap;
+		}
+
+		.experience {
+			display: block;
+			width: 100%;
+			padding: 6mm 0 0;
+			border-top: 0;
+		}
+
+		.experience__header,
+		.skills__header,
+		.additional__header {
+			position: static;
+		}
+
+		.experience__header {
+			margin-bottom: 1mm;
+		}
+
+		.section-label {
+			margin-bottom: 1.5mm;
+			font-size: 6pt;
+		}
+
+		h2 {
+			font-size: 20pt;
+			line-height: 0.95;
+		}
+
+		.experience h2 span,
+		.experience h2 strong {
+			display: inline;
+		}
+
+		.experience h2 strong::before {
+			content: " ";
+		}
+
+		.job {
+			padding: 4mm 0;
+			break-inside: avoid;
+		}
+
+		.job__header {
+			gap: 3mm;
+		}
+
+		h3 {
+			font-size: 13pt;
+			line-height: 1;
+		}
+
+		.job__role {
+			margin-top: 1mm;
+			font-size: 8pt;
+		}
+
+		.job__context,
+		.job__period {
+			font-size: 6.5pt;
+		}
+
+		.job__period {
+			padding-top: 0;
+		}
+
+		.job__description {
+			max-width: none;
+			margin-top: 2.5mm;
+			font-size: 8.2pt;
+			line-height: 1.35;
+		}
+
+		.job__achievements {
+			gap: 1.2mm;
+			max-width: none;
+			margin-top: 2.5mm;
+		}
+
+		.job__achievements li {
+			padding-left: 3.5mm;
+			font-size: 7.5pt;
+			line-height: 1.3;
+		}
+
+		.job__achievements li::before {
+			top: 0.48em;
+			width: 4px;
+			height: 4px;
+		}
+
+		.skills,
+		.additional {
+			grid-template-columns: 38mm minmax(0, 1fr);
+			gap: 8mm;
+			width: 100%;
+			padding: 8mm 0;
+		}
+
+		.skills {
+			padding-top: 0;
+			border-top: 0;
+			break-before: page;
+		}
+
+		.skill-group {
+			padding: 5mm 0;
+			break-inside: avoid;
+		}
+
+		.skill-group__title,
+		.additional__label {
+			margin-bottom: 3mm;
+			font-size: 6pt;
+		}
+
+		.skill-group__list {
+			gap: 2mm 5mm;
+		}
+
+		.skill-group__list li {
+			padding-bottom: 1mm;
+			border-bottom-width: 1px;
+			font-size: 12pt;
+		}
+
+		.additional__title {
+			font-size: 19pt;
+			line-height: 0.9;
+		}
+
+		.additional__content {
+			grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+			gap: 10mm;
+		}
+
+		.additional__item {
+			padding-top: 4mm;
+			break-inside: avoid;
+		}
+
+		.additional__name {
+			max-width: 100%;
+			font-size: 10.5pt;
+			overflow-wrap: break-word;
+		}
+
+		.additional__description {
+			margin-top: 3mm;
+			font-size: 8pt;
+			line-height: 1.35;
+		}
+
+		.additional__meta {
+			margin-top: 1.5mm;
+			font-size: 7pt;
+		}
+
+		.languages {
+			gap: 4mm;
+		}
+
+		.languages div {
+			gap: 1mm;
+		}
+
+		.languages dt {
+			font-size: 10pt;
+		}
+
+		.languages dd {
+			font-size: 7.5pt;
+			line-height: 1.35;
+		}
+
+		.footer {
+			grid-template-columns: 38mm minmax(0, 1fr);
+			gap: 8mm;
+			width: 100%;
+			padding: 6mm 0 0;
+			break-inside: avoid;
+		}
+
+		.footer__name {
+			font-size: 12pt;
+		}
+
+		.footer__content {
+			gap: 0;
+		}
+
+		.footer__contacts {
+			gap: 4mm;
+		}
+
+		.theme-toggle,
+		.print-button {
+			display: none;
+		}
+	}
+</style>
