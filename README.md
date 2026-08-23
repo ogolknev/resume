@@ -15,4 +15,4 @@ pnpm dev
 pnpm build
 ```
 
-Сайт опубликован на [GitHub Pages](https://ogolknev.github.io/portfolio/).
+Сайт опубликован на [GitHub Pages](https://ogolknev.github.io/resume/).
