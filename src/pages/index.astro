@@ -144,12 +144,14 @@ const skillGroups = [
 		<main>
 			<section class="intro" aria-labelledby="intro-title">
 				<div class="portrait">
-					<img
-						src={assetUrl('avatar-color-graded.png')}
-						alt="Никита Оголкнев"
-						width="460"
-						height="460"
-					/>
+					<div class="portrait__frame">
+						<img
+							src={assetUrl('avatar.jpg')}
+							alt="Никита Оголкнев"
+							width="1086"
+							height="1448"
+						/>
+					</div>
 				</div>
 
 				<div class="intro__content">
@@ -496,13 +498,19 @@ const skillGroups = [
 		content: "";
 	}
 
+	.portrait__frame {
+		overflow: hidden;
+		aspect-ratio: 1;
+	}
+
 	.portrait img {
 		display: block;
 		width: 100%;
-		height: auto;
-		aspect-ratio: 1;
+		height: 100%;
 		object-fit: cover;
-		filter: saturate(0.82) contrast(1.03);
+		object-position: 50% 0;
+		transform: scale(1.42);
+		transform-origin: 50% 25%;
 	}
 
 	.intro__content {
